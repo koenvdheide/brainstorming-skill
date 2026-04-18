@@ -26,22 +26,19 @@ Every project goes through this process. A todo list, a single-function utility,
 You MUST create a task for each of these items and complete them in order:
 
 1. **Explore project context** — check files, docs, recent commits
-2. **Offer visual companion** (if topic will involve visual questions) — this is its own message, not combined with a clarifying question. See the Visual Companion section below.
-3. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
-4. **Propose 2-3 approaches** — with trade-offs and your recommendation (only if genuinely open; apply clear wins directly)
-5. **Present design in full AND write spec** — present the entire design in a single message (architecture, components, data flow, error handling, testing — no interstitial approval gates) AND save to `~/.claude-local/superpowers/specs/YYYY-MM-DD-<topic>-design.md`. Do not commit; transient session artifact per user convention.
-6. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-7. **External Review Round** — reviewer subagent via `spec-document-reviewer-prompt.md`, `/codex:codex` red-team (foreground, 1 round), mandatory reviewer-agent QA on Codex summary; apply clear wins inline, surface tradeoffs as user questions (see External Review Round section below)
-8. **User reviews spec (single approval gate)** — ask user to approve; if changes requested, iterate from step 5 (update design + rewrite spec + re-review)
-9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
+3. **Propose 2-3 approaches** — with trade-offs and your recommendation (only if genuinely open; apply clear wins directly)
+4. **Present design in full AND write spec** — present the entire design in a single message (architecture, components, data flow, error handling, testing — no interstitial approval gates) AND save to `~/.claude-local/superpowers/specs/YYYY-MM-DD-<topic>-design.md`. Do not commit; transient session artifact per user convention.
+5. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
+6. **External Review Round** — reviewer subagent via `spec-document-reviewer-prompt.md`, `/codex:codex` red-team (foreground, 1 round), mandatory reviewer-agent QA on Codex summary; apply clear wins inline, surface tradeoffs as user questions (see External Review Round section below)
+7. **User reviews spec (single approval gate)** — ask user to approve; if changes requested, iterate from step 4 (update design + rewrite spec + re-review)
+8. **Transition to implementation** — invoke writing-plans skill to create implementation plan
 
 ## Process Flow
 
 ```dot
 digraph brainstorming {
     "Explore project context" [shape=box];
-    "Visual questions ahead?" [shape=diamond];
-    "Offer Visual Companion\n(own message, no other content)" [shape=box];
     "Ask clarifying questions" [shape=box];
     "Propose 2-3 approaches" [shape=box];
     "Present full design\n+ write spec" [shape=box];
@@ -50,10 +47,7 @@ digraph brainstorming {
     "User reviews spec?" [shape=diamond];
     "Invoke writing-plans skill" [shape=doublecircle];
 
-    "Explore project context" -> "Visual questions ahead?";
-    "Visual questions ahead?" -> "Offer Visual Companion\n(own message, no other content)" [label="yes"];
-    "Visual questions ahead?" -> "Ask clarifying questions" [label="no"];
-    "Offer Visual Companion\n(own message, no other content)" -> "Ask clarifying questions";
+    "Explore project context" -> "Ask clarifying questions";
     "Ask clarifying questions" -> "Propose 2-3 approaches";
     "Propose 2-3 approaches" -> "Present full design\n+ write spec";
     "Present full design\n+ write spec" -> "Spec self-review\n(fix inline)";
@@ -159,27 +153,6 @@ Wait for the user's response. If they request changes, make them and re-run the 
 - **Explore alternatives** - Propose 2-3 approaches only when there's a genuine tradeoff; apply clear wins directly
 - **Incremental validation** - Present design, get approval before moving on
 - **Be flexible** - Go back and clarify when something doesn't make sense
-
-## Visual Companion
-
-A browser-based companion for showing mockups, diagrams, and visual options during brainstorming. Available as a tool — not a mode. Accepting the companion means it's available for questions that benefit from visual treatment; it does NOT mean every question goes through the browser.
-
-**Offering the companion:** When you anticipate that upcoming questions will involve visual content (mockups, layouts, diagrams), offer it once for consent:
-> "Some of what we're working on might be easier to explain if I can show it to you in a web browser. I can put together mockups, diagrams, comparisons, and other visuals as we go. This feature is still new and can be token-intensive. Want to try it? (Requires opening a local URL)"
-
-**This offer MUST be its own message.** Do not combine it with clarifying questions, context summaries, or any other content. The message should contain ONLY the offer above and nothing else. Wait for the user's response before continuing. If they decline, proceed with text-only brainstorming.
-
-**Per-question decision:** Even after the user accepts, decide FOR EACH QUESTION whether to use the browser or the terminal. The test: **would the user understand this better by seeing it than reading it?**
-
-- **Use the browser** for content that IS visual — mockups, wireframes, layout comparisons, architecture diagrams, side-by-side visual designs
-- **Use the terminal** for content that is text — requirements questions, conceptual choices, tradeoff lists, A/B/C/D text options, scope decisions
-
-A question about a UI topic is not automatically a visual question. "What does personality mean in this context?" is a conceptual question — use the terminal. "Which wizard layout works better?" is a visual question — use the browser.
-
-If they agree to the companion, read the detailed guide before proceeding:
-`skills/brainstorming/visual-companion.md`
-
----
 
 ## Native Task Integration
 

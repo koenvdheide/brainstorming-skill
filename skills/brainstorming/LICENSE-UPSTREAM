@@ -31,9 +31,10 @@ SOFTWARE.
 
 Upstream source: https://github.com/obra/superpowers
 Community fork referenced: pcvelz/superpowers (superpowers-extended-cc-marketplace)
-Files in this directory that originated upstream: SKILL.md, spec-document-reviewer-prompt.md, visual-companion.md
+Files in this directory that originated upstream: SKILL.md, spec-document-reviewer-prompt.md
 
 Modifications by Koen van der Heide:
 - Integration with the `reviewer` subagent from the `claude-reviewer` plugin for the External Review Round
 - Spec file location changed from `~/.claude-local/superpowers/specs/` to the author's convention (`docs/superpowers/`)
+- Visual companion feature removed (visual-companion.md deleted, related checklist step and Visual Companion section removed from SKILL.md) — depended on scripts in the upstream `superpowers-extended-cc-marketplace` plugin that aren't bundled here
 - Other author-specific tweaks; see git history of this repo for details
