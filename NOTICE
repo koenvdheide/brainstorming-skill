@@ -1,0 +1,13 @@
+brainstorming-skill — third-party attributions
+==============================================
+
+This repository is a modified fork of the `brainstorming` skill from the
+obra/superpowers project (via the superpowers-extended-cc community fork).
+
+Upstream license: MIT, Copyright (c) 2025 Jesse Vincent.
+
+The full upstream license text and attribution is in LICENSE-UPSTREAM.
+
+That file must be preserved alongside the skill files it covers
+(SKILL.md, spec-document-reviewer-prompt.md, visual-companion.md) when
+redistributing.
