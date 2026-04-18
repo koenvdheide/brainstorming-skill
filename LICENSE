@@ -22,5 +22,5 @@ SOFTWARE.
 
 This repository is a modified fork of the `brainstorming` skill from the
 obra/superpowers project, MIT-licensed by Jesse Vincent (2025). The upstream
-license text is preserved in `LICENSE-UPSTREAM` per MIT's attribution
-requirement. See `NOTICE` for details.
+license text is preserved in `skills/brainstorming/LICENSE-UPSTREAM` per
+MIT's attribution requirement. See `NOTICE` for details.
