@@ -31,7 +31,7 @@ You MUST create a task for each of these items and complete them in order:
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation (only if genuinely open; apply clear wins directly)
 5. **Present design in full AND write spec** — present the entire design in a single message (architecture, components, data flow, error handling, testing — no interstitial approval gates) AND save to `~/.claude-local/superpowers/specs/YYYY-MM-DD-<topic>-design.md`. Do not commit; transient session artifact per user convention.
 6. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-7. **External Review Round** — reviewer subagent via `spec-document-reviewer-prompt.md`, `/codex` red-team (foreground, 1 round), mandatory reviewer-agent QA on Codex summary; apply clear wins inline, surface tradeoffs as user questions (see External Review Round section below)
+7. **External Review Round** — reviewer subagent via `spec-document-reviewer-prompt.md`, `/codex:codex` red-team (foreground, 1 round), mandatory reviewer-agent QA on Codex summary; apply clear wins inline, surface tradeoffs as user questions (see External Review Round section below)
 8. **User reviews spec (single approval gate)** — ask user to approve; if changes requested, iterate from step 5 (update design + rewrite spec + re-review)
 9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
 
@@ -46,7 +46,7 @@ digraph brainstorming {
     "Propose 2-3 approaches" [shape=box];
     "Present full design\n+ write spec" [shape=box];
     "Spec self-review\n(fix inline)" [shape=box];
-    "External Review Round\n(reviewer + /codex + QA-on-summary)" [shape=box];
+    "External Review Round\n(reviewer + /codex:codex + QA-on-summary)" [shape=box];
     "User reviews spec?" [shape=diamond];
     "Invoke writing-plans skill" [shape=doublecircle];
 
@@ -57,8 +57,8 @@ digraph brainstorming {
     "Ask clarifying questions" -> "Propose 2-3 approaches";
     "Propose 2-3 approaches" -> "Present full design\n+ write spec";
     "Present full design\n+ write spec" -> "Spec self-review\n(fix inline)";
-    "Spec self-review\n(fix inline)" -> "External Review Round\n(reviewer + /codex + QA-on-summary)";
-    "External Review Round\n(reviewer + /codex + QA-on-summary)" -> "User reviews spec?";
+    "Spec self-review\n(fix inline)" -> "External Review Round\n(reviewer + /codex:codex + QA-on-summary)";
+    "External Review Round\n(reviewer + /codex:codex + QA-on-summary)" -> "User reviews spec?";
     "User reviews spec?" -> "Present full design\n+ write spec" [label="changes requested"];
     "User reviews spec?" -> "Invoke writing-plans skill" [label="approved"];
 }
@@ -128,14 +128,14 @@ Fix any issues inline. No need to re-review — just fix and move on.
 After spec self-review passes:
 
 1. Dispatch a reviewer subagent using `spec-document-reviewer-prompt.md` as the prompt template. Fix clear findings inline; ask user on judgment calls.
-2. Invoke the `/codex` skill in red-team mode, foreground:
-   - Sandbox per `/codex` skill Mode-to-Sandbox table (`-s read-only` for red-team; content piped in prompt — red-team does not need Codex file access).
+2. Invoke the `/codex:codex` skill in red-team mode, foreground:
+   - Sandbox per `/codex:codex` skill Mode-to-Sandbox table (`-s read-only` for red-team; content piped in prompt — red-team does not need Codex file access).
    - Include `--skip-git-repo-check` — artifact lives outside any git repo; without this flag Codex hangs on startup.
-   - Frame the artifact under `Constraints:`, NOT `Current belief:` (anti-anchoring — `CLAUDE.md` line 40). `CLAUDE.md` overrides the `/codex` skill's "skipping Current belief is an anti-pattern" guidance per user > skill precedence.
+   - Frame the artifact under `Constraints:`, NOT `Current belief:` (anti-anchoring — `CLAUDE.md` line 40). `CLAUDE.md` overrides the `/codex:codex` skill's "skipping Current belief is an anti-pattern" guidance per user > skill precedence.
    - Request output structured under **Breakage** and **Simplifications** headings.
    - Budget: 1 round.
    - On Codex failure (429, timeout, auth, CLI missing), ask user before proceeding unreviewed. No auto-Gemini-fallback (`CLAUDE.md` line 40).
-3. Mandatory reviewer-agent QA on the Codex-output summary — non-optional per `/codex` SKILL.md §Mandatory QA for high-stakes modes (red-team is a listed high-stakes mode).
+3. Mandatory reviewer-agent QA on the Codex-output summary — non-optional per `/codex:codex` SKILL.md §Mandatory QA for high-stakes modes (red-team is a listed high-stakes mode).
 4. Apply clear wins inline; surface tradeoffs as inline questions to user (`CLAUDE.md` line 40).
 5. Proceed to the User Review Gate below.
 
