@@ -83,7 +83,7 @@ digraph brainstorming {
 - Once you believe you understand what you're building, present the ENTIRE design in a single message. Do NOT break into multiple messages with interstitial approval gates.
 - Cover: architecture, components, data flow, error handling, testing.
 - Scale each part to its complexity: a few sentences for simple pieces, up to 200-300 words for nuanced ones.
-- Immediately after presenting, write the design to the spec file (step 5) so the External Review Round can target it. Do not pause here for user approval — the approval gate comes after the review round.
+- Immediately after presenting, write the design to the spec file (within step 4) so the External Review Round can target it. Do not pause here for user approval — the approval gate comes after the review round.
 - If mid-review it becomes clear the design has a fundamental issue, go back and clarify with the user before re-running the review loop.
 
 **Design for isolation and clarity:**
@@ -126,7 +126,7 @@ After spec self-review passes:
    - Include `--skip-git-repo-check` — artifact lives outside any git repo; without this flag Codex hangs on startup.
    - Frame the artifact under `Constraints:`, NOT `Current belief:` (anti-anchoring).
    - Request output structured under **Breakage** and **Simplifications** headings.
-   - Budget: 1 round.
+   - Budget: 1 round **by default** — single-pass review. For evolving specs the user wants to iterate to convergence, switch to **convergence mode** per `/codex:codex` SKILL.md §"Convergence Mode" (user-gated loop; re-state original brief each round; watch for scope drift per the anti-pattern section). Convergence mode replaces this single invocation with a multi-round loop; the rest of the External Review Round steps still apply per round.
    - On Codex failure (429, timeout, auth, CLI missing), ask user before proceeding unreviewed. No auto-Gemini-fallback.
 3. Mandatory reviewer-agent QA on the Codex-output summary — non-optional per `/codex:codex` SKILL.md §Mandatory QA for high-stakes modes (red-team is a listed high-stakes mode).
 4. Apply clear wins inline; surface tradeoffs as inline questions to user.

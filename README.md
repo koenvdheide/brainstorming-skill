@@ -31,7 +31,7 @@ The External Review Round dispatches the `reviewer` subagent and invokes `/codex
 /plugin install codex@review-plugins
 ```
 
-If either is unavailable, the skill falls back to self-review with a flagged caveat.
+If the `reviewer` subagent is unavailable, the skill falls back to self-review with a flagged caveat. If Codex is unavailable, the skill asks before proceeding unreviewed — no automatic Gemini fallback.
 
 The workflow terminates by invoking the `writing-plans` skill — part of [obra/superpowers](https://github.com/obra/superpowers) or a community fork (e.g., `superpowers-extended-cc`), not included in this marketplace.
 
