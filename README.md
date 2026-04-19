@@ -33,6 +33,8 @@ The External Review Round dispatches the `reviewer` subagent and invokes `/codex
 
 If either is unavailable, the skill falls back to self-review with a flagged caveat.
 
+The workflow terminates by invoking the `writing-plans` skill — part of [obra/superpowers](https://github.com/obra/superpowers) or a community fork (e.g., `superpowers-extended-cc`), not included in this marketplace.
+
 ## License
 
 MIT (own code) + MIT (upstream fork). See [`LICENSE`](LICENSE), [`LICENSE-UPSTREAM`](LICENSE-UPSTREAM), and [`NOTICE`](NOTICE).

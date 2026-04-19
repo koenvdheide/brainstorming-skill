@@ -1,7 +1,5 @@
 # Spec Document Reviewer Prompt Template
 
-<!-- Copied from upstream superpowers-extended-cc-marketplace on 2026-04-17. Re-sync manually if upstream changes. -->
-
 Use this template when dispatching a spec document reviewer subagent.
 
 **Purpose:** Verify the spec is complete, consistent, and ready for implementation planning.

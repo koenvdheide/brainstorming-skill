@@ -105,7 +105,6 @@ digraph brainstorming {
 
 - Write the design (spec) to `~/.claude-local/superpowers/specs/YYYY-MM-DD-<topic>-design.md` immediately after presenting it in full. Validation happens in the External Review Round that follows.
   - (User preferences for spec location override this default)
-- Use elements-of-style:writing-clearly-and-concisely skill if available
 
 **Spec Self-Review:**
 After writing the spec document, look at it with fresh eyes:
@@ -125,12 +124,12 @@ After spec self-review passes:
 2. Invoke the `/codex:codex` skill in red-team mode, foreground:
    - Sandbox per `/codex:codex` skill Mode-to-Sandbox table (`-s read-only` for red-team; content piped in prompt — red-team does not need Codex file access).
    - Include `--skip-git-repo-check` — artifact lives outside any git repo; without this flag Codex hangs on startup.
-   - Frame the artifact under `Constraints:`, NOT `Current belief:` (anti-anchoring — `CLAUDE.md` line 40). `CLAUDE.md` overrides the `/codex:codex` skill's "skipping Current belief is an anti-pattern" guidance per user > skill precedence.
+   - Frame the artifact under `Constraints:`, NOT `Current belief:` (anti-anchoring).
    - Request output structured under **Breakage** and **Simplifications** headings.
    - Budget: 1 round.
-   - On Codex failure (429, timeout, auth, CLI missing), ask user before proceeding unreviewed. No auto-Gemini-fallback (`CLAUDE.md` line 40).
+   - On Codex failure (429, timeout, auth, CLI missing), ask user before proceeding unreviewed. No auto-Gemini-fallback.
 3. Mandatory reviewer-agent QA on the Codex-output summary — non-optional per `/codex:codex` SKILL.md §Mandatory QA for high-stakes modes (red-team is a listed high-stakes mode).
-4. Apply clear wins inline; surface tradeoffs as inline questions to user (`CLAUDE.md` line 40).
+4. Apply clear wins inline; surface tradeoffs as inline questions to user.
 5. Proceed to the User Review Gate below.
 
 **User Review Gate:**
@@ -183,7 +182,7 @@ TaskCreate:
   activeForm: "Implementing [Component Name]"
 ```
 
-These tasks will be refined with steps and verify commands during plan writing. See `skills/shared/task-format-reference.md` for the full format.
+These tasks will be refined with steps and verify commands during plan writing.
 
 Track all task IDs for dependency setup.
 
