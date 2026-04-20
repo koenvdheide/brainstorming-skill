@@ -6,7 +6,7 @@ Invokes as `/brainstorming:brainstorming` once installed.
 
 This is a modified fork of the `brainstorming` skill from [obra/superpowers](https://github.com/obra/superpowers) (MIT-licensed, Copyright © 2025 Jesse Vincent). See `LICENSE-UPSTREAM` and `NOTICE` for attribution.
 
-## Install
+## Installation
 
 Via the review-plugins marketplace:
 
@@ -21,6 +21,8 @@ Or directly from this repo:
 /plugin marketplace add koenvdheide/brainstorming-skill
 /plugin install brainstorming@brainstorming-skill
 ```
+
+Refresh later with `/plugin marketplace update review-plugins` (or `brainstorming-skill` if installed directly).
 
 ## Dependencies
 
